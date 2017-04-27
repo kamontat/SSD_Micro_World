@@ -1,16 +1,16 @@
 import java.util.Random;
 
 public class Unit implements IUnit {
-
+	
 	public static final int MAX_HEALTH = 20;
-	public static final float MAX_V = 1.0f;
+	public static final float MAX_V = 5.0f;
 	public static final int SIZE = 10;
-
+	
 	private String name;
 	private int hp;
 	private float x, y;
 	private float vx, vy;
-
+	
 	public Unit(String name) {
 		this.name = name;
 		Random r = new Random();
@@ -20,7 +20,7 @@ public class Unit implements IUnit {
 		this.vx = r.nextFloat() * MAX_V;
 		this.vy = r.nextFloat() * MAX_V;
 	}
-
+	
 	public void move() {
 		if (dead()) {
 			return;
@@ -29,32 +29,48 @@ public class Unit implements IUnit {
 		y += vy;
 		if (x <= 0 || x >= Game.SIZE) {
 			vx *= -1;
-			hp--;
+			decreaseHP();
 		}
 		if (y <= 0 || y >= Game.SIZE) {
 			vy *= -1;
-			hp--;
+			decreaseHP();
 		}
 	}
-
+	
 	public int getX() {
 		return (int) x;
 	}
-
+	
 	public int getY() {
 		return (int) y;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
-
+	
 	public int getHealth() {
 		return hp;
 	}
-
+	
 	public boolean dead() {
 		return hp <= 0;
 	}
-
+	
+	@Override
+	public boolean isHit(IUnit unit) {
+		return Math.abs(getX() - unit.getX()) < SIZE && Math.abs(getY() - unit.getY()) < SIZE;
+	}
+	
+	@Override
+	public void decreaseHP() {
+		hp--;
+	}
+	
+	@Override
+	public void redirection() {
+		vx *= -1;
+		vy *= -1;
+		decreaseHP();
+	}
 }
