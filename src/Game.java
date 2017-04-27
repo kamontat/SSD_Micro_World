@@ -1,11 +1,7 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.util.ArrayList;
+import javax.swing.*;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class Game extends JFrame {
 
@@ -86,7 +82,7 @@ public class Game extends JFrame {
 	public static void main(String[] args) {
 		Game game = new Game();
 		game.setVisible(true);
-		game.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		game.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		game.start();
 	}
 
